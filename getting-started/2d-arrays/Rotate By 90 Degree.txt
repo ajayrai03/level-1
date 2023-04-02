@@ -1,0 +1,45 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn=new Scanner(System.in);
+        int n=scn.nextInt();
+        int[][] arr=new int[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                arr[i][j]=scn.nextInt();
+            }
+        }
+        for(int i=0;i<arr.length-1;i++){
+            for(int j=i+1;j<arr.length;j++){
+                int t=arr[i][j];
+                arr[i][j]=arr[j][i];
+                
+                arr[j][i]=t;
+            }
+        }
+        int left=0;
+        int right=n-1;
+        while(left<right){
+            for(int row=0;row<arr.length;row++){
+                int t=arr[row][left];
+                arr[row][left]=arr[row][right];
+                arr[row][right]=t;
+            }
+            left++;
+            right--;
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                System.out.print(arr[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+    
+
+  
+
+}

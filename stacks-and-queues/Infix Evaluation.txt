@@ -1,0 +1,72 @@
+import java.io.*;
+import java.util.*;
+
+public class Main{
+  
+
+public static void main(String[] args) throws Exception {
+    Scanner scn=new Scanner(System.in);
+    String str=scn.nextLine();
+    Stack<Integer> operand=new Stack<>();
+    Stack<Character> operator=new Stack<>();
+    for(int i=0;i<str.length();i++){
+        char ch=str.charAt(i);
+        if(ch=='('){
+            operator.push(ch);    
+        }
+        else if(Character.isDigit(ch)){
+            operand.push(ch-'0');
+        }
+        else if(ch==')'){
+            while(operator.peek()!='('){
+                char ope=operator.pop();
+                int v2=operand.pop();
+                int v1=operand.pop();
+                int opv=operation(v1,v2,ope);
+                operand.push(opv);
+            }
+            operator.pop();
+        }
+        else if(ch=='+'|| ch=='-'||ch=='*'||ch=='/'){
+            while(operator.size()>0&&operator.peek()!='('&&precedence(ch)<=precedence(operator.peek())){
+                char ope=operator.pop();
+                int v2=operand.pop();
+                int v1=operand.pop();
+                int opv=operation(v1,v2,ope);
+                operand.push(opv);
+            }
+            operator.push(ch);
+        }
+    }
+    while(operator.size()!=0){
+        char ope=operator.pop();
+        int v2=operand.pop();
+        int v1=operand.pop();
+        int opv=operation(v1,v2,ope);
+        operand.push(opv);
+    }
+    System.out.println(operand.peek());
+ }
+ public static int precedence(char ch){
+     if(ch=='+'||ch=='-'){
+         return 1;
+     }
+     else{
+         return 2;
+     }
+ }
+ public static int operation(int v1,int v2,char ope){
+     if(ope=='+'){
+         return v1+v2;
+     }
+     else if(ope=='-'){
+         return v1-v2;
+     }
+     else if(ope=='*'){
+         return v1*v2;
+     }
+     else{
+         return v1/v2;
+     }
+ }
+}

@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) {
+        // write your code here
+        Scanner scn=new Scanner(System.in);
+        int low=scn.nextInt();
+        int high=scn.nextInt();
+        for(int n=low;n<=high;n++)
+        {   int c=0;
+            for(int div =2;div*div<=n;div++)
+            {
+                if(n%div==0)
+                {
+                    c++;
+                    break;
+            }
+            }
+            if(c==0)
+            {
+                System.out.println(n);
+            }
+        }
+        
+    }
+}
